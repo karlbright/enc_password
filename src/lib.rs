@@ -8,12 +8,22 @@ use sodiumoxide::{
     crypto::{box_::PublicKey, sealedbox},
     randombytes,
 };
-use std::error::Error;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 const PREPACKSIZE: usize = 4;
 const KEYSIZE: usize = 32;
 const SEALEDKEYSIZE: usize = sealedbox::SEALBYTES + KEYSIZE;
+
+#[derive(Debug)]
+pub struct Error;
+
+impl std::error::Error for Error {}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "Error")
+    }
+}
 
 /// Generate a key of the correct size to use when encrypting the password initially
 /// as well as being sealed using instagram public key.
@@ -45,7 +55,7 @@ pub fn enc_password(
     key_version: &str,
     public_key: &str,
     password: &str,
-) -> Result<String, Box<dyn Error>> {
+) -> Result<String, crate::Error> {
     let parsed_public_key = parse_key(&public_key);
     let current_time = current_time_as_bytes();
     let message_key = generate_key();
