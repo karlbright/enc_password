@@ -1,6 +1,6 @@
 [package]
 name = "enc_password"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Karl Brightman <karl@karlbright.org>"]
 description = "Simple rust implementation of enc_password format and creation used by Instagram"
 license = "MIT OR Apache-2.0"
